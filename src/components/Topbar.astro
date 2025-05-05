@@ -1,0 +1,50 @@
+<header class="sticky top-0 z-50 w-full border-b bg-white dark:bg-slate-950 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-slate-950/60">
+  <div class="container flex h-14 items-center">
+    <div class="mr-4 flex">
+      <a href="/" class="mr-6 flex items-center space-x-2">
+        <span class="font-bold">Fiszki</span>
+      </a>
+      <nav class="flex items-center space-x-6 text-sm font-medium">
+        <a href="/generate" class="transition-colors hover:text-slate-900/80 dark:hover:text-white/80">Generator</a>
+        <a href="/study" class="transition-colors hover:text-slate-900/80 dark:hover:text-white/80">Nauka</a>
+        <a href="/settings" class="transition-colors hover:text-slate-900/80 dark:hover:text-white/80">Ustawienia</a>
+      </nav>
+    </div>
+    <div class="flex flex-1 items-center justify-end space-x-2">
+      <button
+        id="theme-toggle"
+        class="inline-flex h-9 w-9 items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+        aria-label="Przełącz motyw"
+      >
+        <span class="dark:hidden">🌙</span>
+        <span class="hidden dark:inline">☀️</span>
+      </button>
+      <button
+        id="logout-button"
+        class="inline-flex h-9 items-center justify-center whitespace-nowrap rounded-md border border-input bg-white px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 dark:bg-slate-950"
+      >
+        Wyloguj
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Obsługa przełączania motywu
+  const toggleTheme = () => {
+    const isDark = document.documentElement.classList.contains('dark');
+    document.documentElement.classList.toggle('dark', !isDark);
+    localStorage.setItem('theme', !isDark ? 'dark' : 'light');
+  };
+
+  // Inicjalizacja motywu
+  const theme = localStorage.getItem('theme') || 'light';
+  document.documentElement.classList.toggle('dark', theme === 'dark');
+
+  // Nasłuchiwanie na kliknięcia
+  document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
+  document.getElementById('logout-button')?.addEventListener('click', () => {
+    // TODO: Implement logout logic
+    window.location.href = '/login';
+  });
+</script> 
