@@ -1,0 +1,16 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Topbar from '../components/Topbar.astro';
+import FlashcardsManager from '../components/FlashcardsManager';
+---
+
+<MainLayout title="Generuj fiszki">
+  <div class="min-h-screen bg-background">
+    <Topbar />
+    
+    <main class="container mx-auto px-4 py-8">
+      <h1 class="text-4xl font-bold mb-8">Generator fiszek</h1>
+      <FlashcardsManager client:load />
+    </main>
+  </div>
+</MainLayout> 
