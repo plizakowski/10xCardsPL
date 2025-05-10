@@ -65,6 +65,74 @@ export default function FlashcardsManager() {
     }
   };
 
+  const handleAcceptAll = async () => {
+    try {
+      const editingFlashcards = flashcards.filter((card) => card.status === "editing");
+      if (editingFlashcards.length === 0) {
+        toast.info("Brak fiszek do zaakceptowania");
+        return;
+      }
+
+      await Promise.all(
+        editingFlashcards.map((flashcard) =>
+          fetch(`/api/flashcards/${flashcard.id}/update`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              front_text: flashcard.front_text,
+              back_text: flashcard.back_text,
+              status: "accepted",
+            }),
+          })
+        )
+      );
+
+      setFlashcards((cards) =>
+        cards.map((card) => (card.status === "editing" ? { ...card, status: "accepted" as const } : card))
+      );
+      toast.success("Wszystkie fiszki zostały zaakceptowane");
+    } catch (error) {
+      console.error("Błąd:", error);
+      toast.error("Wystąpił błąd podczas masowego akceptowania fiszek");
+    }
+  };
+
+  const handleRejectAll = async () => {
+    try {
+      const editingFlashcards = flashcards.filter((card) => card.status === "editing");
+      if (editingFlashcards.length === 0) {
+        toast.info("Brak fiszek do odrzucenia");
+        return;
+      }
+
+      await Promise.all(
+        editingFlashcards.map((flashcard) =>
+          fetch(`/api/flashcards/${flashcard.id}/update`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              front_text: flashcard.front_text,
+              back_text: flashcard.back_text,
+              status: "rejected",
+            }),
+          })
+        )
+      );
+
+      setFlashcards((cards) =>
+        cards.map((card) => (card.status === "editing" ? { ...card, status: "rejected" as const } : card))
+      );
+      toast.success("Wszystkie fiszki zostały odrzucone");
+    } catch (error) {
+      console.error("Błąd:", error);
+      toast.error("Wystąpił błąd podczas masowego odrzucania fiszek");
+    }
+  };
+
   const handleEdit = (flashcard: FlashcardDTO) => {
     if (flashcard.status === "accepted" || flashcard.status === "rejected") {
       toast.info("Edycja spowoduje powrót fiszki do stanu roboczego");
@@ -117,6 +185,8 @@ export default function FlashcardsManager() {
             onAccept={handleAccept}
             onReject={handleReject}
             onEdit={handleEdit}
+            onAcceptAll={handleAcceptAll}
+            onRejectAll={handleRejectAll}
           />
         </div>
       )}

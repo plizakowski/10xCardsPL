@@ -8,6 +8,8 @@ interface GeneratedFlashcardsListProps {
   onAccept: (flashcard: FlashcardDTO) => void;
   onReject: (flashcard: FlashcardDTO) => void;
   onEdit: (flashcard: FlashcardDTO) => void;
+  onAcceptAll: () => void;
+  onRejectAll: () => void;
 }
 
 export default function GeneratedFlashcardsList({
@@ -15,6 +17,8 @@ export default function GeneratedFlashcardsList({
   onAccept,
   onReject,
   onEdit,
+  onAcceptAll,
+  onRejectAll,
 }: GeneratedFlashcardsListProps) {
   if (!flashcards.length) {
     return null;
@@ -23,6 +27,14 @@ export default function GeneratedFlashcardsList({
   return (
     <div className="space-y-4">
       <h2 className="text-2xl font-bold">Wygenerowane fiszki</h2>
+      <div className="flex gap-2">
+        <Button className="border border-red-500 text-red-500 hover:bg-red-50" onClick={onRejectAll}>
+          Odrzuć wszystkie
+        </Button>
+        <Button className="border border-green-500 bg-green-500 text-white hover:bg-green-600" onClick={onAcceptAll}>
+          Akceptuj wszystkie
+        </Button>
+      </div>
 
       <div className="grid gap-4 md:grid-cols-2">
         {flashcards.map((flashcard) => (
@@ -51,18 +63,19 @@ export default function GeneratedFlashcardsList({
               </div>
             </CardContent>
             <CardFooter className="flex justify-end space-x-2">
-              <Button variant="outline" size="sm" onClick={() => onEdit(flashcard)}>
+              <Button className="bg-white hover:bg-gray-50 h-8 px-3 text-sm" onClick={() => onEdit(flashcard)}>
                 Edytuj
               </Button>
               <Button
-                variant="outline"
-                size="sm"
+                className="bg-white text-red-500 hover:bg-red-50 h-8 px-3 text-sm"
                 onClick={() => onReject(flashcard)}
-                className="text-red-500 hover:text-red-700"
               >
                 Odrzuć
               </Button>
-              <Button variant="default" size="sm" onClick={() => onAccept(flashcard)}>
+              <Button
+                className="bg-green-500 text-white hover:bg-green-600 h-8 px-3 text-sm"
+                onClick={() => onAccept(flashcard)}
+              >
                 Akceptuj
               </Button>
             </CardFooter>
