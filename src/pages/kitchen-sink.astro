@@ -1,0 +1,149 @@
+---
+import { Button } from "../components/ui/button";
+import { Typography } from "../components/ui/typography";
+import { List, ListItem } from "../components/ui/list";
+import { Navigation, NavigationItem } from "../components/ui/navigation";
+import { Feedback } from "../components/ui/feedback";
+---
+
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kitchen Sink - Komponenty UI</title>
+  </head>
+  <body>
+    <div class="container mx-auto p-8">
+      <Typography variant="h1" className="mb-8" client:load>Kitchen Sink - Komponenty UI</Typography>
+
+      {/* Buttons */}
+      <section class="mb-12">
+        <Typography variant="h2" className="mb-4" client:load>Przyciski</Typography>
+        <div class="flex flex-wrap gap-4">
+          <Button client:load>Domyślny</Button>
+          <Button client:load variant="secondary">Secondary</Button>
+          <Button client:load variant="outline">Outline</Button>
+          <Button client:load variant="ghost">Ghost</Button>
+          <Button client:load variant="link">Link</Button>
+          <Button client:load size="sm">Small</Button>
+          <Button client:load size="lg">Large</Button>
+          <Button client:load rounded="full">Zaokrąglony</Button>
+          <Button client:load disabled>Wyłączony</Button>
+        </div>
+      </section>
+
+      {/* Typography */}
+      <section class="mb-12">
+        <Typography variant="h2" className="mb-4" client:load>Typografia</Typography>
+        <div class="space-y-4">
+          <Typography variant="h1" client:load>Nagłówek H1</Typography>
+          <Typography variant="h2" client:load>Nagłówek H2</Typography>
+          <Typography variant="h3" client:load>Nagłówek H3</Typography>
+          <Typography variant="h4" client:load>Nagłówek H4</Typography>
+          <Typography variant="h5" client:load>Nagłówek H5</Typography>
+          <Typography variant="h6" client:load>Nagłówek H6</Typography>
+          <Typography variant="p" client:load>Paragraf z polskimi znakami: ąćęłńóśźż ĄĆĘŁŃÓŚŹŻ</Typography>
+          <Typography variant="small" client:load>Mały tekst z polskimi znakami: ąćęłńóśźż</Typography>
+          <Typography variant="tiny" client:load>Bardzo mały tekst z polskimi znakami: ąćęłńóśźż</Typography>
+          <Typography variant="p" weight="bold" client:load>Pogrubiony tekst z polskimi znakami: ąćęłńóśźż</Typography>
+          <Typography variant="p" align="center" client:load>Wycentrowany tekst z polskimi znakami: ąćęłńóśźż</Typography>
+        </div>
+      </section>
+
+      {/* Lists */}
+      <section class="mb-12">
+        <Typography variant="h2" className="mb-4" client:load>Listy</Typography>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <Typography variant="h6" className="mb-2" client:load>Lista punktowana</Typography>
+            <List client:load>
+              <ListItem>Pierwszy element z polskimi znakami: ąćęłńóśźż</ListItem>
+              <ListItem>Drugi element z polskimi znakami: ąćęłńóśźż</ListItem>
+              <ListItem>Trzeci element z polskimi znakami: ąćęłńóśźż</ListItem>
+            </List>
+          </div>
+          <div>
+            <Typography variant="h6" className="mb-2" client:load>Lista numerowana</Typography>
+            <List client:load variant="numbered">
+              <ListItem>Pierwszy element z polskimi znakami: ąćęłńóśźż</ListItem>
+              <ListItem>Drugi element z polskimi znakami: ąćęłńóśźż</ListItem>
+              <ListItem>Trzeci element z polskimi znakami: ąćęłńóśźż</ListItem>
+            </List>
+          </div>
+          <div>
+            <Typography variant="h6" className="mb-2" client:load>Lista z ikonami</Typography>
+            <List client:load variant="none">
+              <ListItem client:load>
+                <span class="inline-flex items-center">
+                  <span class="text-green-500 mr-2">✓</span>
+                  Element z ikoną i polskimi znakami: ąćęłńóśźż
+                </span>
+              </ListItem>
+              <ListItem client:load>
+                <span class="inline-flex items-center">
+                  <span class="text-blue-500 mr-2">ℹ</span>
+                  Element z ikoną i polskimi znakami: ąćęłńóśźż
+                </span>
+              </ListItem>
+            </List>
+          </div>
+        </div>
+      </section>
+
+      {/* Navigation */}
+      <section class="mb-12">
+        <Typography variant="h2" className="mb-4" client:load>Nawigacja</Typography>
+        <div class="space-y-8">
+          <div>
+            <Typography variant="h6" className="mb-2" client:load>Nawigacja pozioma</Typography>
+            <Navigation client:load>
+              <NavigationItem href="/home" active>Strona główna</NavigationItem>
+              <NavigationItem href="/about">O nas</NavigationItem>
+              <NavigationItem href="/contact">Kontakt</NavigationItem>
+              <NavigationItem href="/disabled" disabled>Wyłączone</NavigationItem>
+            </Navigation>
+          </div>
+          <div>
+            <Typography variant="h6" className="mb-2" client:load>Nawigacja pionowa</Typography>
+            <Navigation client:load variant="vertical">
+              <NavigationItem href="/home" active>Strona główna</NavigationItem>
+              <NavigationItem href="/about">O nas</NavigationItem>
+              <NavigationItem href="/contact">Kontakt</NavigationItem>
+            </Navigation>
+          </div>
+        </div>
+      </section>
+
+      {/* Feedback */}
+      <section class="mb-12">
+        <Typography variant="h2" className="mb-4" client:load>Komunikaty</Typography>
+        <div class="space-y-4">
+          <Feedback client:load variant="success" title="Sukces" showIcon closeable>
+            Operacja zakończona sukcesem! Polskie znaki: ąćęłńóśźż
+          </Feedback>
+          <Feedback client:load variant="error" title="Błąd" showIcon>
+            Wystąpił błąd podczas przetwarzania żądania. Polskie znaki: ąćęłńóśźż
+          </Feedback>
+          <Feedback client:load variant="warning" title="Ostrzeżenie" showIcon>
+            Pamiętaj o zapisaniu zmian przed wyjściem. Polskie znaki: ąćęłńóśźż
+          </Feedback>
+          <Feedback client:load variant="info" title="Informacja" showIcon>
+            Nowa wersja aplikacji jest dostępna. Polskie znaki: ąćęłńóśźż
+          </Feedback>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
+
+<style>
+  /* Dodatkowe style dla strony */
+  section {
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 2rem;
+  }
+  
+  section:last-child {
+    border-bottom: none;
+  }
+</style> 

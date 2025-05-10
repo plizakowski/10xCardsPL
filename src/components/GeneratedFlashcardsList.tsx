@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import type { FlashcardDTO } from "@/types";
+import { CheckCircle2, XCircle } from "lucide-react";
 
 interface GeneratedFlashcardsListProps {
   flashcards: FlashcardDTO[];
@@ -25,7 +26,17 @@ export default function GeneratedFlashcardsList({
 
       <div className="grid gap-4 md:grid-cols-2">
         {flashcards.map((flashcard) => (
-          <Card key={flashcard.id}>
+          <Card key={flashcard.id} className="relative">
+            {flashcard.status === "accepted" && (
+              <div className="absolute top-2 right-2">
+                <CheckCircle2 className="w-6 h-6 text-green-500" />
+              </div>
+            )}
+            {flashcard.status === "rejected" && (
+              <div className="absolute top-2 right-2">
+                <XCircle className="w-6 h-6 text-red-500" />
+              </div>
+            )}
             <CardHeader>
               <CardTitle>Fiszka</CardTitle>
             </CardHeader>
