@@ -1,132 +1,142 @@
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import type { FlashcardDTO } from "@/types";
 import GenerateAIFlashcardsForm from "./GenerateAIFlashcardsForm";
 import GeneratedFlashcardsList from "./GeneratedFlashcardsList";
-import EditFlashcardDialog from "./EditFlashcardDialog";
-import { toast } from "sonner";
+
+interface Flashcard {
+  id: string;
+  front: string;
+  back: string;
+}
 
 export default function FlashcardsManager() {
-  const [flashcards, setFlashcards] = useState<FlashcardDTO[]>([]);
-  const [editingFlashcard, setEditingFlashcard] = useState<FlashcardDTO | null>(null);
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
+  const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleFlashcardsGenerated = (newFlashcards: FlashcardDTO[]) => {
+  const handleFlashcardsGenerated = async (newFlashcards: Flashcard[]) => {
     setFlashcards(newFlashcards);
   };
 
-  const handleAccept = async (flashcard: FlashcardDTO) => {
+  const handleAccept = async (id: string) => {
+    setIsProcessing(true);
     try {
-      const response = await fetch(`/api/flashcards/${flashcard.id}/update`, {
+      const response = await fetch(`/api/flashcards/${id}/accept`, {
+        method: "POST",
+      });
+
+      if (!response.ok) {
+        throw new Error("Nie udało się zaakceptować fiszki");
+      }
+
+      setFlashcards((prev) => prev.filter((flashcard) => flashcard.id !== id));
+    } catch (error) {
+      console.error("Błąd podczas akceptowania fiszki:", error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleReject = async (id: string) => {
+    setIsProcessing(true);
+    try {
+      const response = await fetch(`/api/flashcards/${id}/reject`, {
+        method: "POST",
+      });
+
+      if (!response.ok) {
+        throw new Error("Nie udało się odrzucić fiszki");
+      }
+
+      setFlashcards((prev) => prev.filter((flashcard) => flashcard.id !== id));
+    } catch (error) {
+      console.error("Błąd podczas odrzucania fiszki:", error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleEdit = async (id: string, front: string, back: string) => {
+    setIsProcessing(true);
+    try {
+      const response = await fetch(`/api/flashcards/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ front, back }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Nie udało się zaktualizować fiszki");
+      }
+
+      setFlashcards((prev) =>
+        prev.map((flashcard) => (flashcard.id === id ? { ...flashcard, front, back } : flashcard))
+      );
+    } catch (error) {
+      console.error("Błąd podczas aktualizacji fiszki:", error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleAcceptAll = async () => {
+    setIsProcessing(true);
+    try {
+      const response = await fetch("/api/flashcards/accept-all", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          front_text: flashcard.front_text,
-          back_text: flashcard.back_text,
-          status: "accepted",
-        }),
+        body: JSON.stringify({ ids: flashcards.map((f) => f.id) }),
       });
-      if (!response.ok) throw new Error("Błąd podczas akceptowania fiszki");
 
-      setFlashcards((cards) =>
-        cards.map((card) => (card.id === flashcard.id ? { ...card, status: "accepted" as const } : card))
-      );
-      toast.success("Fiszka została zaakceptowana");
+      if (!response.ok) {
+        throw new Error("Nie udało się zaakceptować wszystkich fiszek");
+      }
+
+      setFlashcards([]);
     } catch (error) {
-      console.error("Błąd:", error);
-      toast.error("Wystąpił błąd podczas akceptowania fiszki");
+      console.error("Błąd podczas akceptowania wszystkich fiszek:", error);
+    } finally {
+      setIsProcessing(false);
     }
   };
 
-  const handleReject = async (flashcard: FlashcardDTO) => {
+  const handleRejectAll = async () => {
+    setIsProcessing(true);
     try {
-      const response = await fetch(`/api/flashcards/${flashcard.id}/update`, {
+      const response = await fetch("/api/flashcards/reject-all", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          front_text: flashcard.front_text,
-          back_text: flashcard.back_text,
-          status: "rejected",
-        }),
+        body: JSON.stringify({ ids: flashcards.map((f) => f.id) }),
       });
-      if (!response.ok) throw new Error("Błąd podczas odrzucania fiszki");
 
-      setFlashcards((cards) =>
-        cards.map((card) => (card.id === flashcard.id ? { ...card, status: "rejected" as const } : card))
-      );
-      toast.success("Fiszka została odrzucona");
+      if (!response.ok) {
+        throw new Error("Nie udało się odrzucić wszystkich fiszek");
+      }
+
+      setFlashcards([]);
     } catch (error) {
-      console.error("Błąd:", error);
-      toast.error("Wystąpił błąd podczas odrzucania fiszki");
-    }
-  };
-
-  const handleEdit = (flashcard: FlashcardDTO) => {
-    if (flashcard.status === "accepted" || flashcard.status === "rejected") {
-      toast.info("Edycja spowoduje powrót fiszki do stanu roboczego");
-    }
-    setEditingFlashcard(flashcard);
-    setIsEditDialogOpen(true);
-  };
-
-  const handleSaveEdit = async (editedFlashcard: FlashcardDTO) => {
-    try {
-      const response = await fetch(`/api/flashcards/${editedFlashcard.id}/update`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          front_text: editedFlashcard.front_text,
-          back_text: editedFlashcard.back_text,
-          status: "editing",
-        }),
-      });
-      if (!response.ok) throw new Error("Błąd podczas zapisywania zmian");
-
-      setFlashcards((cards) =>
-        cards.map((card) =>
-          card.id === editedFlashcard.id ? { ...editedFlashcard, status: "editing" as const } : card
-        )
-      );
-      setIsEditDialogOpen(false);
-      setEditingFlashcard(null);
-      toast.success("Zapisano zmiany. Pamiętaj, że musisz ponownie zaakceptować fiszkę.");
-    } catch (error) {
-      console.error("Błąd:", error);
-      toast.error("Wystąpił błąd podczas zapisywania zmian");
+      console.error("Błąd podczas odrzucania wszystkich fiszek:", error);
+    } finally {
+      setIsProcessing(false);
     }
   };
 
   return (
-    <div className="space-y-8">
-      <Card>
-        <CardContent className="p-6">
-          <GenerateAIFlashcardsForm onFlashcardsGenerated={handleFlashcardsGenerated} />
-        </CardContent>
-      </Card>
-
-      {flashcards.length > 0 && (
-        <div>
-          <GeneratedFlashcardsList
-            flashcards={flashcards}
-            onAccept={handleAccept}
-            onReject={handleReject}
-            onEdit={handleEdit}
-          />
-        </div>
-      )}
-
-      <EditFlashcardDialog
-        flashcard={editingFlashcard}
-        open={isEditDialogOpen}
-        onOpenChange={setIsEditDialogOpen}
-        onSave={handleSaveEdit}
+    <>
+      <GenerateAIFlashcardsForm onFlashcardsGenerated={handleFlashcardsGenerated} />
+      <GeneratedFlashcardsList
+        flashcards={flashcards}
+        onAccept={handleAccept}
+        onReject={handleReject}
+        onEdit={handleEdit}
+        onAcceptAll={handleAcceptAll}
+        onRejectAll={handleRejectAll}
+        isProcessing={isProcessing}
       />
-    </div>
+    </>
   );
 }
