@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import RegisterForm from '../components/auth/RegisterForm';
+
+export const prerender = false;
+
+// Przekieruj zalogowanych użytkowników do strony głównej
+const { user } = Astro.locals;
+if (user) {
+  return Astro.redirect('/');
+}
+---
+
+<BaseLayout title="Rejestracja">
+  <div class="container mx-auto px-4 py-8">
+    <div class="max-w-md mx-auto">
+      <h1 class="text-3xl font-bold mb-8 text-center">Rejestracja</h1>
+      <RegisterForm client:load />
+      <div class="mt-4 text-center">
+        <a href="/login" class="text-primary hover:underline">Masz już konto? Zaloguj się</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout> 

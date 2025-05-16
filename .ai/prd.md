@@ -115,12 +115,6 @@ Kryteria akceptacji:
 - Użytkownik ocenia zgodnie z oczekiwaniami algorytmu na ile przyswoił fiszkę
 - Następnie algorytm pokazuje kolejną fiszkę w ramach sesji nauki
 
-ID: US-009
-Tytuł: Bezpieczny dostęp i autoryzacja
-Opis: Jako zalogowany użytkownik chcę mieć pewność, że moje fiszki nie są dostępne dla innych użytkowników, aby zachować prywatność i bezpieczeństwo danych.
-Kryteria akceptacji:
-- Tylko zalogowany użytkownik może wyświetlać, edytować i usuwać swoje fiszki.
-- Nie ma dostępu do fiszek innych użytkowników ani możliwości współdzielenia.
 
 ## 6. Metryki sukcesu
 1. Efektywność generowania fiszek:
