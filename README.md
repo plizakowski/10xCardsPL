@@ -28,6 +28,12 @@ AI-powered flashcard application for mastering programming concepts through spac
 ![DigitalOcean](https://img.shields.io/badge/DigitalOcean-1.0-0080FF?logo=digitalocean)  
 ![Docker](https://img.shields.io/badge/Docker-24.0-2496ED?logo=docker)
 
+**Testing**  
+![Vitest](https://img.shields.io/badge/Vitest-1.0-6E9F18?logo=vitest)  
+![React Testing Library](https://img.shields.io/badge/Testing_Library-14.0-E33332?logo=testing-library)  
+![Playwright](https://img.shields.io/badge/Playwright-1.40-2EAD33?logo=playwright)  
+![Mock Service Worker](https://img.shields.io/badge/MSW-2.0-FF6A33)
+
 ## Getting Started Locally
 
 1. **Clone repository**
@@ -63,6 +69,9 @@ npm run build  # Production build
 npm run preview  # Preview production build
 npm run check  # TypeScript validation
 npm run format  # Code formatting
+npm run test   # Run unit tests with Vitest
+npm run test:ui # Run Vitest with UI
+npm run test:e2e # Run E2E tests with Playwright
 ```
 
 ## Project Scope

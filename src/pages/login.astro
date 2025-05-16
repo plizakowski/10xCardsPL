@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LoginForm from '../components/auth/LoginForm';
+---
+
+<BaseLayout title="Logowanie">
+  <div class="container mx-auto px-4 py-8">
+    <div class="max-w-md mx-auto">
+      <h1 class="text-3xl font-bold mb-8 text-center">Logowanie</h1>
+      <LoginForm client:load />
+      <div class="mt-4 text-center">
+        <a href="/register" class="text-primary hover:underline">Nie masz konta? Zarejestruj się</a>
+        <br />
+        <a href="/forgot-password" class="text-primary hover:underline">Zapomniałeś hasła?</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout> 
