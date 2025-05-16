@@ -6,18 +6,96 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title} | Fiszki</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
-  <body class="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-white antialiased">
-    <slot />
+  <body class="min-h-screen bg-gray-50">
+    <div class="min-h-screen flex flex-col">
+      <header class="bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between h-16">
+            <div class="flex">
+              <div class="flex-shrink-0 flex items-center">
+                <a href="/" class="text-xl font-bold text-gray-900">Fiszki</a>
+              </div>
+              <nav class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                <a
+                  href="/generate"
+                  class="border-blue-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >
+                  Generator
+                </a>
+                <a
+                  href="/study"
+                  class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >
+                  Nauka
+                </a>
+                <a
+                  href="/settings"
+                  class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >
+                  Ustawienia
+                </a>
+              </nav>
+            </div>
+            <div class="hidden sm:ml-6 sm:flex sm:items-center">
+              <button
+                type="button"
+                class="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                <span class="sr-only">Zobacz powiadomienia</span>
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                  ></path>
+                </svg>
+              </button>
+              <div class="ml-3 relative">
+                <button
+                  type="button"
+                  class="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                >
+                  <span class="sr-only">Otwórz menu użytkownika</span>
+                  <img
+                    class="h-8 w-8 rounded-full"
+                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    alt=""
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="flex-1">
+        <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+          <slot />
+        </div>
+      </main>
+    </div>
   </body>
 </html>
+
+<script>
+  import { Toaster } from "sonner";
+  import { createRoot } from "react-dom/client";
+
+  // Inicjalizacja komponentu powiadomień
+  const container = document.getElementById("sonner-toaster");
+  if (container) {
+    const root = createRoot(container);
+    root.render(Toaster({ richColors: true, position: "top-right" }));
+  }
+</script>
 
 <style is:global>
   :root {
