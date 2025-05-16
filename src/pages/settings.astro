@@ -1,0 +1,93 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import { Button } from "../components/ui/button";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../components/ui/card";
+---
+
+<MainLayout title="Ustawienia">
+  <div class="bg-white">
+    <div class="mx-auto max-w-7xl py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
+          <span class="block">Ustawienia</span>
+          <span class="block text-blue-600">Dostosuj aplikację</span>
+        </h1>
+        <p class="mx-auto mt-3 max-w-md text-base text-gray-500 sm:text-lg md:mt-5 md:max-w-3xl md:text-xl">
+          Dostosuj ustawienia aplikacji do swoich potrzeb. Zmień wygląd, język i inne parametry.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>Wygląd</CardTitle>
+          <CardDescription>Dostosuj wygląd aplikacji do swoich preferencji.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-lg font-medium leading-6 text-gray-900">Motyw ciemny</h3>
+                <p class="mt-1 text-sm text-gray-500">Włącz lub wyłącz ciemny motyw aplikacji.</p>
+              </div>
+              <Button variant="outline">Włącz</Button>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-lg font-medium leading-6 text-gray-900">Kontrast</h3>
+                <p class="mt-1 text-sm text-gray-500">Dostosuj kontrast interfejsu.</p>
+              </div>
+              <Button variant="outline">Normalny</Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Język</CardTitle>
+          <CardDescription>Wybierz język interfejsu aplikacji.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-lg font-medium leading-6 text-gray-900">Język interfejsu</h3>
+                <p class="mt-1 text-sm text-gray-500">Wybierz język, w którym będzie wyświetlany interfejs.</p>
+              </div>
+              <Button variant="outline">Polski</Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Powiadomienia</CardTitle>
+          <CardDescription>Zarządzaj powiadomieniami aplikacji.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-lg font-medium leading-6 text-gray-900">Przypomnienia o nauce</h3>
+                <p class="mt-1 text-sm text-gray-500">Otrzymuj przypomnienia o zaplanowanych sesjach nauki.</p>
+              </div>
+              <Button variant="outline">Włącz</Button>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-lg font-medium leading-6 text-gray-900">Powiadomienia email</h3>
+                <p class="mt-1 text-sm text-gray-500">Otrzymuj powiadomienia na adres email.</p>
+              </div>
+              <Button variant="outline">Wyłącz</Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  </div>
+</MainLayout> 
