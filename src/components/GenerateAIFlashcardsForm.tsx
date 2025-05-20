@@ -12,7 +12,7 @@ interface GenerateAIFlashcardsFormProps {
   onFlashcardsGenerated: (flashcards: Flashcard[]) => void;
 }
 
-const MIN_TEXT_LENGTH = 10;
+const MIN_TEXT_LENGTH = 1000;
 const MAX_TEXT_LENGTH = 10000;
 
 export default function GenerateAIFlashcardsForm({ onFlashcardsGenerated }: GenerateAIFlashcardsFormProps) {
@@ -64,29 +64,31 @@ export default function GenerateAIFlashcardsForm({ onFlashcardsGenerated }: Gene
     <form onSubmit={handleSubmit}>
       <Card>
         <CardHeader>
-          <CardTitle>Wprowadź tekst</CardTitle>
-          <CardDescription>
-            Wklej tekst lub wprowadź temat, z którego chcesz wygenerować fiszki.
-          </CardDescription>
+          <CardTitle>Tekst źródłowy</CardTitle>
+          <CardDescription>Wklej tekst lub wprowadź temat, z którego chcesz wygenerować fiszki.</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             <div className="space-y-2">
+              <label htmlFor="sourceText" className="sr-only">
+                Tekst źródłowy
+              </label>
               <textarea
+                id="sourceText"
                 value={text}
                 onChange={(e) => {
                   setText(e.target.value);
                   setError(null);
                 }}
                 className="w-full min-h-[200px] p-4 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder={`Wprowadź tekst lub temat (minimum ${MIN_TEXT_LENGTH} znaków)...`}
+                placeholder="Wklej tekst do analizy"
                 disabled={isGenerating}
               />
               <div className="flex items-center justify-between text-sm">
                 <div className="text-gray-500">
                   Liczba znaków: {text.length} / {MAX_TEXT_LENGTH}
                 </div>
-                {error && <p className="text-red-600">{error}</p>}
+                {error && <p className="text-sm text-red-500">{error}</p>}
               </div>
             </div>
             <div className="flex justify-end">
