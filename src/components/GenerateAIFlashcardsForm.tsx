@@ -1,80 +1,106 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import type { GenerateFlashcardsCommand, GenerateFlashcardsResponseDTO, FlashcardDTO } from "@/types";
+import { Button } from "./ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+
+interface Flashcard {
+  id: string;
+  front: string;
+  back: string;
+}
 
 interface GenerateAIFlashcardsFormProps {
-  onFlashcardsGenerated: (flashcards: FlashcardDTO[]) => void;
+  onFlashcardsGenerated: (flashcards: Flashcard[]) => void;
 }
+
+const MIN_TEXT_LENGTH = 10;
+const MAX_TEXT_LENGTH = 10000;
 
 export default function GenerateAIFlashcardsForm({ onFlashcardsGenerated }: GenerateAIFlashcardsFormProps) {
   const [text, setText] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (text.length < 1000) {
-      setError("Tekst musi zawierać minimum 1000 znaków");
-      return;
-    }
-
-    if (text.length > 10000) {
-      setError("Tekst nie może przekraczać 10000 znaków");
-      return;
-    }
-
-    setIsLoading(true);
     setError(null);
 
+    if (text.length < MIN_TEXT_LENGTH) {
+      setError(`Tekst musi zawierać minimum ${MIN_TEXT_LENGTH} znaków`);
+      return;
+    }
+
+    if (text.length > MAX_TEXT_LENGTH) {
+      setError(`Tekst nie może przekraczać ${MAX_TEXT_LENGTH} znaków`);
+      return;
+    }
+
+    setIsGenerating(true);
+
     try {
-      const response = await fetch("/api/ai/generate", {
+      // TODO: Zaimplementować rzeczywiste wywołanie API
+      const response = await fetch("/api/generate-flashcards", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ text } as GenerateFlashcardsCommand),
+        body: JSON.stringify({ text }),
       });
 
       if (!response.ok) {
         throw new Error("Wystąpił błąd podczas generowania fiszek");
       }
 
-      const data: GenerateFlashcardsResponseDTO = await response.json();
+      const data = await response.json();
       onFlashcardsGenerated(data.flashcards);
-      setText(""); // Wyczyść pole tekstowe po udanym wygenerowaniu
+      setText("");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Wystąpił nieznany błąd");
     } finally {
-      setIsLoading(false);
+      setIsGenerating(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="space-y-2">
-        <label
-          htmlFor="text"
-          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-        >
-          Tekst źródłowy
-        </label>
-        <Textarea
-          id="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder="Wklej tekst do analizy (minimum 1000 znaków)"
-          className="min-h-[200px]"
-          disabled={isLoading}
-        />
-        {error && <p className="text-sm text-red-500">{error}</p>}
-        <p className="text-sm text-muted-foreground">Liczba znaków: {text.length} / 10000</p>
-      </div>
-
-      <Button type="submit" disabled={isLoading || text.length < 1000 || text.length > 10000} className="w-full">
-        {isLoading ? "Generowanie..." : "Generuj fiszki"}
-      </Button>
+    <form onSubmit={handleSubmit}>
+      <Card>
+        <CardHeader>
+          <CardTitle>Wprowadź tekst</CardTitle>
+          <CardDescription>
+            Wklej tekst lub wprowadź temat, z którego chcesz wygenerować fiszki.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <textarea
+                value={text}
+                onChange={(e) => {
+                  setText(e.target.value);
+                  setError(null);
+                }}
+                className="w-full min-h-[200px] p-4 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder={`Wprowadź tekst lub temat (minimum ${MIN_TEXT_LENGTH} znaków)...`}
+                disabled={isGenerating}
+              />
+              <div className="flex items-center justify-between text-sm">
+                <div className="text-gray-500">
+                  Liczba znaków: {text.length} / {MAX_TEXT_LENGTH}
+                </div>
+                {error && <p className="text-red-600">{error}</p>}
+              </div>
+            </div>
+            <div className="flex justify-end">
+              <Button
+                type="submit"
+                disabled={isGenerating || text.length < MIN_TEXT_LENGTH || text.length > MAX_TEXT_LENGTH}
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+              >
+                {isGenerating ? "Generowanie..." : "Generuj fiszki"}
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </form>
   );
 }
