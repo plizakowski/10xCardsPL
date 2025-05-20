@@ -147,54 +147,6 @@ export default function FlashcardsManager() {
     }
   };
 
-  const handleEdit = (flashcard: FlashcardDTO) => {
-    if (flashcard.status === "accepted" || flashcard.status === "rejected") {
-      toast.info("Edycja spowoduje powrót fiszki do stanu roboczego");
-    setIsProcessing(true);
-    try {
-      const response = await fetch("/api/flashcards/accept-all", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ids: flashcards.map((f) => f.id) }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Nie udało się zaakceptować wszystkich fiszek");
-      }
-
-      setFlashcards([]);
-    } catch (error) {
-      console.error("Błąd podczas akceptowania wszystkich fiszek:", error);
-    } finally {
-      setIsProcessing(false);
-    }
-  };
-
-  const handleRejectAll = async () => {
-    setIsProcessing(true);
-    try {
-      const response = await fetch("/api/flashcards/reject-all", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ids: flashcards.map((f) => f.id) }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Nie udało się odrzucić wszystkich fiszek");
-      }
-
-      setFlashcards([]);
-    } catch (error) {
-      console.error("Błąd podczas odrzucania wszystkich fiszek:", error);
-    } finally {
-      setIsProcessing(false);
-    }
-  };
-
   return (
     <div className="space-y-8">
       <Card>
@@ -221,17 +173,7 @@ export default function FlashcardsManager() {
         open={isEditDialogOpen}
         onOpenChange={setIsEditDialogOpen}
         onSave={handleSaveEdit}
-    <>
-      <GenerateAIFlashcardsForm onFlashcardsGenerated={handleFlashcardsGenerated} />
-      <GeneratedFlashcardsList
-        flashcards={flashcards}
-        onAccept={handleAccept}
-        onReject={handleReject}
-        onEdit={handleEdit}
-        onAcceptAll={handleAcceptAll}
-        onRejectAll={handleRejectAll}
-        isProcessing={isProcessing}
       />
-    </>
+    </div>
   );
 }

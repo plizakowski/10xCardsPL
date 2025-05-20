@@ -3,24 +3,26 @@ import { defineConfig } from "astro/config";
 import node from "@astrojs/node";
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
-import { fileURLToPath } from 'url';
-import path from 'path';
+import { fileURLToPath } from "url";
+import path from "path";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://astro.build/config
 export default defineConfig({
   output: "server",
-  integrations: [
-    react(),
-    tailwind(),
-  ],
+  integrations: [react(), tailwind()],
   server: { port: 3000 },
   vite: {
     plugins: [],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src'),
+        "@": path.resolve(__dirname, "./src"),
+      },
+    },
+    build: {
+      rollupOptions: {
+        external: ["openai"],
       },
     },
   },
