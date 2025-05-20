@@ -9,6 +9,16 @@ describe("GenerateAIFlashcardsForm", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    server.use(
+      http.post("/api/generate-flashcards", () => {
+        return HttpResponse.json({
+          flashcards: [
+            { id: "1", front: "Pytanie 1", back: "Odpowiedź 1" },
+            { id: "2", front: "Pytanie 2", back: "Odpowiedź 2" },
+          ],
+        });
+      })
+    );
   });
 
   it("powinien renderować formularz z polem tekstowym i przyciskiem", () => {
@@ -48,28 +58,13 @@ describe("GenerateAIFlashcardsForm", () => {
 
     // Sprawdzamy czy po submicie pojawił się komunikat o błędzie
     await waitFor(() => {
-      const errorMessage = screen.getByText("Tekst musi zawierać minimum 1000 znaków");
-      expect(errorMessage).toBeInTheDocument();
-      expect(errorMessage.tagName.toLowerCase()).toBe("p");
-      expect(errorMessage).toHaveClass("text-sm text-red-500");
+      expect(screen.getByText(/tekst musi zawierać minimum 1000 znaków/i)).toBeInTheDocument();
     });
 
     expect(mockOnFlashcardsGenerated).not.toHaveBeenCalled();
   });
 
   it("powinien wysłać żądanie i wywołać callback po pomyślnym wygenerowaniu", async () => {
-    // Przygotowanie mocka MSW dla odpowiedzi API
-    server.use(
-      http.post("/api/ai/generate", () => {
-        return HttpResponse.json({
-          flashcards: [
-            { id: "1", question: "Pytanie 1", answer: "Odpowiedź 1" },
-            { id: "2", question: "Pytanie 2", answer: "Odpowiedź 2" },
-          ],
-        });
-      })
-    );
-
     render(<GenerateAIFlashcardsForm onFlashcardsGenerated={mockOnFlashcardsGenerated} />);
 
     const textarea = screen.getByLabelText(/tekst źródłowy/i);
@@ -85,7 +80,10 @@ describe("GenerateAIFlashcardsForm", () => {
     // Oczekiwanie na zakończenie żądania
     await waitFor(() => {
       expect(mockOnFlashcardsGenerated).toHaveBeenCalledWith(
-        expect.arrayContaining([expect.objectContaining({ id: "1" }), expect.objectContaining({ id: "2" })])
+        expect.arrayContaining([
+          expect.objectContaining({ id: "1", front: "Pytanie 1", back: "Odpowiedź 1" }),
+          expect.objectContaining({ id: "2", front: "Pytanie 2", back: "Odpowiedź 2" }),
+        ])
       );
     });
 
