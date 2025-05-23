@@ -8,9 +8,9 @@ const { user } = Astro.locals;
   <div class="container flex h-16 items-center px-4 mx-auto">
     <div class="mr-6 flex items-center">
       <a href="/" class="mr-8 flex items-center space-x-2 group">
-        <span class="text-xl font-bold tracking-tight text-primary group-hover:text-primary/80 transition-colors"
-          >Fiszki</span
-        >
+        <span class="text-xl font-bold tracking-tight text-primary group-hover:text-primary/80 transition-colors">
+          Fiszki
+        </span>
       </a>
       <nav class="flex items-center space-x-1 text-sm font-medium" role="navigation">
         <a
@@ -56,7 +56,7 @@ const { user } = Astro.locals;
   </div>
 </header>
 
-<script>
+<script is:inline>
   // Obsługa przełączania motywu
   const toggleTheme = () => {
     const isDark = document.documentElement.classList.contains("dark");

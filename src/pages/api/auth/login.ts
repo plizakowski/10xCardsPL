@@ -8,56 +8,50 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     // Walidacja podstawowa
     if (!email || !password) {
       return new Response(
-        JSON.stringify({ error: "Email i hasło są wymagane" }), 
-        { 
-          status: 400,
-          headers: { 'Content-Type': 'application/json' }
-        }
+        JSON.stringify({
+          error: "Email and password are required",
+        }),
+        { status: 400 }
       );
     }
 
     if (password.length < 4) {
       return new Response(
-        JSON.stringify({ error: "Hasło musi mieć minimum 4 znaki" }), 
-        { 
-          status: 400,
-          headers: { 'Content-Type': 'application/json' }
-        }
+        JSON.stringify({
+          error: "Hasło musi mieć minimum 4 znaki",
+        }),
+        { status: 400 }
       );
     }
 
     const supabase = createSupabaseServer({ cookies, headers: request.headers });
-
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { error: signInError } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
-    if (error) {
+    if (signInError) {
       return new Response(
-        JSON.stringify({ error: "Nieprawidłowy email lub hasło" }), 
-        { 
-          status: 401,
-          headers: { 'Content-Type': 'application/json' }
-        }
+        JSON.stringify({
+          error: signInError.message,
+        }),
+        { status: 401 }
       );
     }
 
     // Zwracamy sukces zamiast przekierowania
     return new Response(
-      JSON.stringify({ success: true }), 
-      { 
-        status: 200,
-        headers: { 'Content-Type': 'application/json' }
-      }
+      JSON.stringify({
+        success: true,
+      }),
+      { status: 200 }
     );
   } catch (error) {
     return new Response(
-      JSON.stringify({ error: "Wystąpił błąd podczas logowania" }), 
-      { 
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      }
+      JSON.stringify({
+        error: error instanceof Error ? error.message : "An unknown error occurred",
+      }),
+      { status: 500 }
     );
   }
 };

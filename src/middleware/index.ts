@@ -33,7 +33,7 @@ export const onRequest = defineMiddleware(async ({ locals, cookies, url, request
   } = await supabase.auth.getUser();
 
   if (user) {
-    // @ts-ignore - dodamy typy dla locals później
+    // @ts-expect-error - Astro API types are not fully compatible
     locals.user = {
       email: user.email,
       id: user.id,

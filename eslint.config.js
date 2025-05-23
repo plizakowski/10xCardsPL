@@ -1,7 +1,6 @@
 import { includeIgnoreFile } from "@eslint/compat";
 import eslint from "@eslint/js";
 import eslintPluginPrettier from "eslint-plugin-prettier/recommended";
-import eslintPluginAstro from "eslint-plugin-astro";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 import pluginReact from "eslint-plugin-react";
 import reactCompiler from "eslint-plugin-react-compiler";
@@ -16,10 +15,20 @@ const __dirname = path.dirname(__filename);
 const gitignorePath = path.resolve(__dirname, ".gitignore");
 
 const baseConfig = tseslint.config({
+  files: ["**/*.{js,jsx,ts,tsx}"],
   extends: [eslint.configs.recommended, tseslint.configs.strict, tseslint.configs.stylistic],
+  languageOptions: {
+    parser: tseslint.parser,
+    parserOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      project: "./tsconfig.json",
+    },
+  },
   rules: {
     "no-console": "warn",
     "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
   },
 });
 
@@ -56,11 +65,23 @@ const reactConfig = tseslint.config({
   },
 });
 
+const commonjsConfig = tseslint.config({
+  files: ["**/*.{cjs,js}"],
+  languageOptions: {
+    globals: {
+      module: true,
+    },
+  },
+});
+
 export default tseslint.config(
   includeIgnoreFile(gitignorePath),
+  {
+    ignores: ["**/*.astro", "src/db/database.types.ts", "coverage/**", "**/node_modules/**", "dist/**"],
+  },
   baseConfig,
   jsxA11yConfig,
   reactConfig,
-  eslintPluginAstro.configs["flat/recommended"],
+  commonjsConfig,
   eslintPluginPrettier
 );

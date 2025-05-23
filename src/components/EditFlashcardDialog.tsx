@@ -24,7 +24,7 @@ export default function EditFlashcardDialog({ flashcard, open, onOpenChange, onS
 
   const handleSave = () => {
     if (!flashcard) return;
-    
+
     onSave({
       ...flashcard,
       front_text: frontText,

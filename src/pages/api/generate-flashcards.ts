@@ -49,7 +49,7 @@ Example format:
     let flashcards;
     try {
       flashcards = JSON.parse(content);
-    } catch (e) {
+    } catch {
       console.error("Failed to parse generated content as JSON:", content);
       throw new Error("Generated content is not valid JSON");
     }
@@ -64,9 +64,15 @@ Example format:
     console.error("Error generating flashcards:", error);
     return new Response(
       JSON.stringify({
-        error: "Failed to generate flashcards",
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error occurred",
       }),
-      { status: 500 }
+      {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
     );
   }
 };

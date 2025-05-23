@@ -1,23 +1,21 @@
 import { useState } from "react";
+import { toast } from "./ui/toast";
+import { Card, CardContent } from "./ui/card";
+import EditFlashcardDialog from "./EditFlashcardDialog";
 import GenerateAIFlashcardsForm from "./GenerateAIFlashcardsForm";
 import GeneratedFlashcardsList from "./GeneratedFlashcardsList";
-
-interface Flashcard {
-  id: string;
-  front: string;
-  back: string;
-}
+import type { FlashcardDTO } from "@/types";
 
 export default function FlashcardsManager() {
-  const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [flashcards, setFlashcards] = useState<FlashcardDTO[]>([]);
+  const [editingFlashcard, setEditingFlashcard] = useState<FlashcardDTO | null>(null);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
-  const handleFlashcardsGenerated = async (newFlashcards: Flashcard[]) => {
+  const handleFlashcardsGenerated = (newFlashcards: FlashcardDTO[]) => {
     setFlashcards(newFlashcards);
   };
 
   const handleAccept = async (id: string) => {
-    setIsProcessing(true);
     try {
       const response = await fetch(`/api/flashcards/${id}/accept`, {
         method: "POST",
@@ -30,13 +28,10 @@ export default function FlashcardsManager() {
       setFlashcards((prev) => prev.filter((flashcard) => flashcard.id !== id));
     } catch (error) {
       console.error("Błąd podczas akceptowania fiszki:", error);
-    } finally {
-      setIsProcessing(false);
     }
   };
 
   const handleReject = async (id: string) => {
-    setIsProcessing(true);
     try {
       const response = await fetch(`/api/flashcards/${id}/reject`, {
         method: "POST",
@@ -49,20 +44,17 @@ export default function FlashcardsManager() {
       setFlashcards((prev) => prev.filter((flashcard) => flashcard.id !== id));
     } catch (error) {
       console.error("Błąd podczas odrzucania fiszki:", error);
-    } finally {
-      setIsProcessing(false);
     }
   };
 
-  const handleEdit = async (id: string, front: string, back: string) => {
-    setIsProcessing(true);
+  const handleEdit = async (id: string, front_text: string, back_text: string) => {
     try {
       const response = await fetch(`/api/flashcards/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ front, back }),
+        body: JSON.stringify({ front_text, back_text }),
       });
 
       if (!response.ok) {
@@ -70,12 +62,10 @@ export default function FlashcardsManager() {
       }
 
       setFlashcards((prev) =>
-        prev.map((flashcard) => (flashcard.id === id ? { ...flashcard, front, back } : flashcard))
+        prev.map((flashcard) => (flashcard.id === id ? { ...flashcard, front_text, back_text } : flashcard))
       );
     } catch (error) {
       console.error("Błąd podczas aktualizacji fiszki:", error);
-    } finally {
-      setIsProcessing(false);
     }
   };
 
@@ -144,6 +134,14 @@ export default function FlashcardsManager() {
     } catch (error) {
       console.error("Błąd:", error);
       toast.error("Wystąpił błąd podczas masowego odrzucania fiszek");
+    }
+  };
+
+  const handleSaveEdit = (flashcard: FlashcardDTO) => {
+    if (editingFlashcard) {
+      handleEdit(flashcard.id, flashcard.front_text, flashcard.back_text);
+      setIsEditDialogOpen(false);
+      setEditingFlashcard(null);
     }
   };
 
