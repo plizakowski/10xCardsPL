@@ -1,11 +1,13 @@
 # Architektura UI dla 10x-cards
 
 ## 1. Przegląd struktury UI
+
 Interfejs użytkownika składa się z jednego widoku, który łączy główne funkcjonalności: generowanie fiszek przez AI, ręczne tworzenie fiszek oraz przeglądanie/edycję istniejących fiszek. Struura obejmuje widoki uwoerzytelniania, generowania fisze listy fiszez modalem edycji, panel oraz wodok sesji powtórek. Nawigacja odbywa się poprzez topbar oparty na Navigation Menu od shadcn/ui. Całość jest responsywna, zgodna z WCAG AA, wykorzystuje React hooks i context do zarządzania stanem, a także implementuje inline walidację i komunikaty o błędach.
 
 ## 2. Lista widoków
 
 - **Widok logowania/rejestracji**
+
   - Ścieżka widoku: `/login` lub `/register`
   - Główny cel: Umożliwienie autoryzacji użytkownika.
   - Kluczowe informacje do wyświetlenia: Formularze logowania/rejestracji, komunikaty walidacyjne i błędów.
@@ -13,6 +15,7 @@ Interfejs użytkownika składa się z jednego widoku, który łączy główne fu
   - UX, dostępność i względy bezpieczeństwa: Wsparcie dla klawiatury i czytelne etykiety, autoryzacja oparta na JWT, szyfrowanie danych.
 
 - **Główny widok**
+
   - Ścieżka widoku: `/generate` (domyślne przekierowanie po logowaniu)
   - Główny cel: Zarządzanie i organizacja fiszek oraz dostęp do głównych funkcji aplikacji.
   - Kluczowe informacje do wyświetlenia: Przegląd funkcji (generowanie AI, ręczne tworzenie, przeglądanie fiszek), podsumowanie stanu konta.
@@ -20,6 +23,7 @@ Interfejs użytkownika składa się z jednego widoku, który łączy główne fu
   - UX, dostępność i względy bezpieczeństwa: Intuicyjna nawigacja, responsywność, ochrona danych użytkownika przy użyciu JWT.
 
 - **Widok generowania fiszek (AI)**
+
   - Ścieżka widoku: `/dashboard/ai-generate`
   - Główny cel: Umożliwienie użytkownikowi generowania fiszek przy pomocy sztucznej inteligencji.
   - Kluczowe informacje do wyświetlenia: Pole do wprowadzania tekstu, lista wygenerowanych propozycji fiszek, status fiszek (np. "w trakcie edycji").
@@ -27,6 +31,7 @@ Interfejs użytkownika składa się z jednego widoku, który łączy główne fu
   - UX, dostępność i względy bezpieczeństwa: Inline walidacja i komunikaty błędów, dostępność dla czytników ekranu, responsywność, walidacja danych przed wysłaniem.
 
 - **Widok ręcznego tworzenia fiszki**
+
   - Ścieżka widoku: `/dashboard/manual-create`
   - Główny cel: Pozwolenie użytkownikowi na ręczne dodawanie nowych fiszek.
   - Kluczowe informacje do wyświetlenia: Formularz umożliwiający wprowadzenie "przodu" i "tyłu" fiszki.
@@ -34,6 +39,7 @@ Interfejs użytkownika składa się z jednego widoku, który łączy główne fu
   - UX, dostępność i względy bezpieczeństwa: Prostota obsługi, czytelność formularza, walidacja pól, zabezpieczenia przed błędami danych.
 
 - **Widok przeglądania fiszek**
+
   - Ścieżka widoku: `/dashboard/flashcards`
   - Główny cel: Prezentacja listy istniejących fiszek z możliwością filtrowania i edycji.
   - Kluczowe informacje do wyświetlenia: Lista fiszek, filtry według statusu i źródła, opcje lazy loading, przyciski do edycji i usuwania.
@@ -41,6 +47,7 @@ Interfejs użytkownika składa się z jednego widoku, który łączy główne fu
   - UX, dostępność i względy bezpieczeństwa: Intuicyjne filtrowanie, dostępność dla urządzeń mobilnych, potwierdzenia działań, obsługa błędów inline.
 
 - **Modal szczegółowego podglądu fiszki**
+
   - Ścieżka widoku: Wbudowany komponent modal (wyświetlany w widoku przeglądania fiszek)
   - Główny cel: Zapewnienie szczegółowego podglądu fiszki przed zatwierdzeniem lub edycją.
   - Kluczowe informacje do wyświetlenia: Pełne dane fiszki, opcje akceptacji, edycji lub odrzucenia.
@@ -67,6 +74,7 @@ Interfejs użytkownika składa się z jednego widoku, który łączy główne fu
 ## 4. Układ i struktura nawigacji
 
 Nawigacja w aplikacji realizowana jest przez topbar oparty na Navigation Menu od shadcn/ui, który obejmuje:
+
 - Logo lub nazwę produktu
 - Linki do głównych sekcji: Generowanie AI, Ręczne tworzenie, Przegląd fiszek, Sesja nauki
 - Ikonki profilu i ustawień, umożliwiające dostęp do opcji konta oraz wylogowania
@@ -81,4 +89,4 @@ Nawigacja jest responsywna – na mniejszych ekranach zmienia się w menu hambur
 - **Lista fiszek**: Komponent do wyświetlania i filtrowania fiszek z opcją lazy loadingu oraz edycji inline.
 - **Rating gwiazdkowy**: Komponent oceny fiszek, umożliwiający szybką recenzję treści.
 - **Komunikaty inline**: System wyświetlania błędów i walidacji bezpośrednio w interfejsie użytkownika.
-- **Zarządzanie stanem**: Wykorzystanie React hooks i context (z możliwością migracji do Zustand) dla scentralizowanego zarządzania danymi aplikacji. 
+- **Zarządzanie stanem**: Wykorzystanie React hooks i context (z możliwością migracji do Zustand) dla scentralizowanego zarządzania danymi aplikacji.

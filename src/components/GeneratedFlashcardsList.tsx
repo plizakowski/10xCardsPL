@@ -1,19 +1,13 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
-
-interface Flashcard {
-  id: string;
-  front: string;
-  back: string;
-  status?: "editing" | "accepted" | "rejected";
-}
+import type { FlashcardDTO } from "@/types";
 
 interface GeneratedFlashcardsListProps {
-  flashcards: Flashcard[];
+  flashcards: FlashcardDTO[];
   onAccept: (id: string) => void;
   onReject: (id: string) => void;
-  onEdit: (id: string, front: string, back: string) => void;
+  onEdit: (id: string, front_text: string, back_text: string) => void;
   onAcceptAll: () => void;
   onRejectAll: () => void;
   isProcessing: boolean;
@@ -32,10 +26,10 @@ export default function GeneratedFlashcardsList({
   const [editFront, setEditFront] = useState("");
   const [editBack, setEditBack] = useState("");
 
-  const handleStartEdit = (flashcard: Flashcard) => {
+  const handleStartEdit = (flashcard: FlashcardDTO) => {
     setEditingId(flashcard.id);
-    setEditFront(flashcard.front);
-    setEditBack(flashcard.back);
+    setEditFront(flashcard.front_text);
+    setEditBack(flashcard.back_text);
   };
 
   const handleSaveEdit = () => {
@@ -132,11 +126,11 @@ export default function GeneratedFlashcardsList({
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <h4 className="text-sm font-medium text-gray-500">Przód</h4>
-                      <p className="mt-1">{flashcard.front}</p>
+                      <p className="mt-1">{flashcard.front_text}</p>
                     </div>
                     <div>
                       <h4 className="text-sm font-medium text-gray-500">Tył</h4>
-                      <p className="mt-1">{flashcard.back}</p>
+                      <p className="mt-1">{flashcard.back_text}</p>
                     </div>
                   </div>
                   <div className="flex justify-end space-x-2">

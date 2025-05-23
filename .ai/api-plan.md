@@ -1,19 +1,21 @@
 # Plan REST API
 
 ## 1. Zasoby
+
 - **Użytkownicy (users)** - Zarządzani przez Supabase Auth
-- **Fiszki (flashcards)** - Przechowują dane fiszek edukacyjnych 
+- **Fiszki (flashcards)** - Przechowują dane fiszek edukacyjnych
 - **Zapytania AI (ai_requests)** - Przechowują informacje o zapytaniach do AI
 
 ## 2. Punkty końcowe
 
 ### Autentykacja
-*Uwaga: Wykorzystujemy gotowe endpointy Supabase Auth*
 
+_Uwaga: Wykorzystujemy gotowe endpointy Supabase Auth_
 
 ### Fiszki
 
 #### Pobieranie listy fiszek
+
 - **Metoda:** GET
 - **Ścieżka:** `/api/flashcards`
 - **Opis:** Zwraca listę fiszek zalogowanego użytkownika
@@ -45,6 +47,7 @@
 - **Kody błędów:** 401 Unauthorized, 500 Internal Server Error
 
 #### Pobieranie pojedynczej fiszki
+
 - **Metoda:** GET
 - **Ścieżka:** `/api/flashcards/{id}`
 - **Opis:** Zwraca szczegóły pojedynczej fiszki
@@ -61,6 +64,7 @@
 - **Kody błędów:** 401 Unauthorized, 404 Not Found, 500 Internal Server Error
 
 #### Tworzenie nowej fiszki
+
 - **Metoda:** POST
 - **Ścieżka:** `/api/flashcards`
 - **Opis:** Tworzy nową fiszkę (ręcznie lub przez AI)
@@ -93,6 +97,7 @@
 - **Kody błędów:** 400 Bad Request, 401 Unauthorized, 500 Internal Server Error
 
 #### Masowe tworzenie fiszek
+
 - **Metoda:** POST
 - **Ścieżka:** `/api/flashcards/batch`
 - **Opis:** Tworzy wiele fiszek na raz (np. z generowanych propozycji AI)
@@ -138,6 +143,7 @@
 - **Kody błędów:** 400 Bad Request, 401 Unauthorized, 500 Internal Server Error
 
 #### Aktualizacja fiszki
+
 - **Metoda:** PUT
 - **Ścieżka:** `/api/flashcards/{id}`
 - **Opis:** Aktualizuje istniejącą fiszkę
@@ -162,6 +168,7 @@
 - **Kody błędów:** 400 Bad Request, 401 Unauthorized, 404 Not Found, 500 Internal Server Error
 
 #### Usuwanie fiszki
+
 - **Metoda:** DELETE
 - **Ścieżka:** `/api/flashcards/{id}`
 - **Opis:** Usuwa fiszkę
@@ -178,6 +185,7 @@
 ### Generowanie AI
 
 #### Generowanie propozycji fiszek
+
 - **Metoda:** POST
 - **Ścieżka:** `/api/ai/generate`
 - **Opis:** Generuje propozycje fiszek na podstawie podanego tekstu
@@ -211,6 +219,7 @@
 ### Sesja nauki
 
 #### Rozpoczęcie sesji nauki
+
 - **Metoda:** GET
 - **Ścieżka:** `/api/study/session`
 - **Opis:** Inicjalizuje nową sesję nauki i zwraca pierwszą fiszkę
@@ -231,6 +240,7 @@
 - **Kody błędów:** 401 Unauthorized, 404 Not Found (brak fiszek), 500 Internal Server Error
 
 #### Ocena fiszki i pobranie następnej
+
 - **Metoda:** POST
 - **Ścieżka:** `/api/study/flashcard/{id}/answer`
 - **Opis:** Zapisuje ocenę fiszki i zwraca następną fiszkę w sesji
@@ -238,7 +248,7 @@
   ```json
   {
     "session_id": "uuid",
-    "score": 3  // Ocena zapamiętania (wartość zależna od użytego algorytmu spaced repetition)
+    "score": 3 // Ocena zapamiętania (wartość zależna od użytego algorytmu spaced repetition)
   }
   ```
 - **Odpowiedź:**
@@ -261,6 +271,7 @@
 ### Statystyki
 
 #### Statystyki generowania AI
+
 - **Metoda:** GET
 - **Ścieżka:** `/api/statistics/ai-generations`
 - **Opis:** Zwraca statystyki generowania fiszek przez AI
@@ -280,11 +291,13 @@
 ## 3. Uwierzytelnianie i autoryzacja
 
 ### Mechanizm uwierzytelniania
+
 - Wykorzystanie Supabase Auth do uwierzytelniania użytkowników
 - JWT (JSON Web Tokens) jako mechanizm zarządzania sesjami
 - Tokeny przesyłane w nagłówku `Authorization: Bearer <token>`
 
 ### Autoryzacja
+
 - Zapytania do API wymagają ważnego tokenu JWT
 - Zasady RLS (Row Level Security) w Supabase zapewniają, że każdy użytkownik ma dostęp tylko do swoich danych
 - Dodatkowa weryfikacja po stronie API dla potwierdzenia, że użytkownik ma dostęp do danego zasobu
@@ -292,7 +305,9 @@
 ## 4. Walidacja i logika biznesowa
 
 ### Walidacja
+
 - **Fiszki:**
+
   - `front_text` i `back_text`: Wymagane, od 1 do 4000 znaków
   - `status`: Musi być jedną z dozwolonych wartości: 'zaakceptowane', 'odrzucone', 'w trakcie edycji'
 
@@ -300,16 +315,19 @@
   - `text`: Wymagane, od 1000 do 10000 znaków
 
 ### Logika biznesowa
+
 - **Generowanie fiszek:**
+
   - Tekst wejściowy jest analizowany przez model LLM poprzez openrouter.ai
   - Wygenerowane fiszki otrzymują status 'w trakcie edycji'
   - Informacje o zapytaniu są zapisywane w tabeli `ai_requests`
 
 - **Sesja nauki:**
+
   - Wykorzystanie zewnętrznej biblioteki do algorytmu spaced repetition
   - Fiszki są prezentowane użytkownikowi zgodnie z harmonogramem powtórek
   - Wyniki ocen są wykorzystywane do planowania kolejnych powtórek
 
 - **Statystyki:**
   - Zliczanie generowanych i zaakceptowanych fiszek
-  - Obliczanie współczynnika akceptacji 
+  - Obliczanie współczynnika akceptacji

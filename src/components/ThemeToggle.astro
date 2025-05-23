@@ -7,7 +7,7 @@ import Button from "./ui/Button.astro";
   <span class="hidden dark:inline">☀️</span>
 </Button>
 
-<script>
+<script is:inline>
   const toggleTheme = () => {
     const isDark = document.documentElement.classList.contains("dark");
     document.documentElement.classList.toggle("dark", !isDark);

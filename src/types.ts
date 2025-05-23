@@ -5,7 +5,11 @@
  * DTO są oparte na modelach bazy danych zdefiniowanych w database.types.ts
  */
 
-import { Database, Tables } from "./db/database.types";
+import type { Database } from "./db/database.types";
+
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
+
+export type DatabaseTables = Database["public"]["Tables"];
 
 // Podstawowe typy i enumy
 

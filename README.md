@@ -3,7 +3,9 @@
 [![Project Status: Active](https://img.shields.io/badge/repo_status-active-brightgreen.svg)](https://github.com/your-username/fiszki)
 
 ## Project Description
+
 AI-powered flashcard application for mastering programming concepts through spaced repetition. Key features:
+
 - Smart content generation using AI models
 - Multi-language programming support
 - Cross-device synchronization
@@ -11,6 +13,7 @@ AI-powered flashcard application for mastering programming concepts through spac
 - Customizable learning paths
 
 ## Tech Stack
+
 **Frontend**  
 ![Astro](https://img.shields.io/badge/Astro-5.0-FF5D01?logo=astro)  
 ![React](https://img.shields.io/badge/React-19.0-61DAFB?logo=react)  
@@ -37,22 +40,27 @@ AI-powered flashcard application for mastering programming concepts through spac
 ## Getting Started Locally
 
 1. **Clone repository**
+
    ```bash
    git clone https://github.com/your-username/fiszki.git
    cd fiszki
    ```
 
 2. **Install dependencies**
+
    ```bash
    nvm use 20
    npm install
    ```
 
 3. **Configure environment**
+
    ```bash
    cp .env.example .env
    ```
+
    Update values in `.env` file:
+
    - `SUPABASE_URL`
    - `SUPABASE_ANON_KEY`
    - `OPENROUTER_API_KEY`
@@ -63,6 +71,7 @@ AI-powered flashcard application for mastering programming concepts through spac
    ```
 
 ## Available Scripts
+
 ```bash
 npm run dev    # Start dev server
 npm run build  # Production build
@@ -75,22 +84,25 @@ npm run test:e2e # Run E2E tests with Playwright
 ```
 
 ## Project Scope
-| Feature | Status | Details |
-|---------|--------|---------|
-| AI Content Generation | ✅ Implemented | OpenRouter.ai integration |
-| Spaced Repetition | ✅ Implemented | SM-2 algorithm |
-| Multi-language Support | 🚧 In Progress | Python/JS/TS |
-| User Authentication | ✅ Implemented | Supabase Auth |
-| Analytics Dashboard | ⏳ Planned | Q3 2024 |
+
+| Feature                | Status         | Details                   |
+| ---------------------- | -------------- | ------------------------- |
+| AI Content Generation  | ✅ Implemented | OpenRouter.ai integration |
+| Spaced Repetition      | ✅ Implemented | SM-2 algorithm            |
+| Multi-language Support | 🚧 In Progress | Python/JS/TS              |
+| User Authentication    | ✅ Implemented | Supabase Auth             |
+| Analytics Dashboard    | ⏳ Planned     | Q3 2024                   |
 
 ## Project Status
+
 **Current Version:** 0.8.0 Beta  
-**Latest Release:** [v0.8.0](https://github.com/your-username/fiszki/releases)  
+**Latest Release:** [v0.8.0](https://github.com/your-username/fiszki/releases)
 
 Active development with weekly updates. See [ROADMAP.md](docs/ROADMAP.md) for detailed plans.
 
 ## License
-[MIT License](LICENSE) - *Update with actual license before release*
+
+[MIT License](LICENSE) - _Update with actual license before release_
 
 ---
 

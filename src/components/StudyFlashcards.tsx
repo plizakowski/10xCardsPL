@@ -46,7 +46,9 @@ export default function StudyFlashcards() {
     setCurrentCardIndex((prev) => (prev + 1) % flashcards.length);
   };
 
-  const handleDifficultyRating = (rating: number) => {
+  const handleRate = (confidence: number) => {
+    // Używamy confidence do przyszłej implementacji algorytmu powtórek
+    console.log(`Zapamiętanie karty ocenione na: ${confidence}`);
     // TODO: Implement spaced repetition algorithm
     handleNextCard();
   };
@@ -79,13 +81,13 @@ export default function StudyFlashcards() {
                   <div className="flex flex-col space-y-4 w-full">
                     <div className="text-sm text-gray-500 text-center mb-2">Jak dobrze pamiętałeś odpowiedź?</div>
                     <div className="flex justify-center space-x-4">
-                      <Button onClick={() => handleDifficultyRating(1)} variant="destructive" size="lg">
+                      <Button onClick={() => handleRate(1)} variant="destructive" size="lg">
                         Trudne
                       </Button>
-                      <Button onClick={() => handleDifficultyRating(2)} variant="outline" size="lg">
+                      <Button onClick={() => handleRate(2)} variant="outline" size="lg">
                         Średnie
                       </Button>
-                      <Button onClick={() => handleDifficultyRating(3)} variant="default" size="lg">
+                      <Button onClick={() => handleRate(3)} variant="default" size="lg">
                         Łatwe
                       </Button>
                     </div>

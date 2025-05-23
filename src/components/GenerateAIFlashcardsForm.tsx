@@ -1,15 +1,10 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
-
-interface Flashcard {
-  id: string;
-  front: string;
-  back: string;
-}
+import type { FlashcardDTO } from "@/types";
 
 interface GenerateAIFlashcardsFormProps {
-  onFlashcardsGenerated: (flashcards: Flashcard[]) => void;
+  onFlashcardsGenerated: (flashcards: FlashcardDTO[]) => void;
 }
 
 const MIN_TEXT_LENGTH = 1000;
