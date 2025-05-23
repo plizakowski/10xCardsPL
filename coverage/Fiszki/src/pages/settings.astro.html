@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for Fiszki/src/components/Welcome.astro</title>
+    <title>Code coverage report for Fiszki/src/pages/settings.astro</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">Fiszki/src/components</a> Welcome.astro</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">Fiszki/src/pages</a> settings.astro</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/91</span>
+                <span class='fraction'>0/93</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/91</span>
+                <span class='fraction'>0/93</span>
             </div>
         
             
@@ -154,7 +154,9 @@
 <a name='L89'></a><a href='#L89'>89</a>
 <a name='L90'></a><a href='#L90'>90</a>
 <a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -245,97 +247,101 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >&lt;div</span></span></span>
-<span class="cstat-no" title="statement not covered" >  class="relative w-full mx-auto min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 p-4 sm:p-8"</span>
-<span class="cstat-no" title="statement not covered" >&gt;</span>
-<span class="cstat-no" title="statement not covered" >  &lt;div</span>
-<span class="cstat-no" title="statement not covered" >    class="relative max-w-4xl mx-auto backdrop-blur-xl bg-gradient-to-b from-white/10 to-white/5 rounded-2xl shadow-2xl p-8 text-white border border-white/10"</span>
-<span class="cstat-no" title="statement not covered" >  &gt;</span>
-<span class="cstat-no" title="statement not covered" >    &lt;div class="space-y-8"&gt;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >---</span></span></span>
+<span class="cstat-no" title="statement not covered" >import MainLayout from "../layouts/MainLayout.astro";</span>
+<span class="cstat-no" title="statement not covered" >import { Button } from "../components/ui/button";</span>
+<span class="cstat-no" title="statement not covered" >import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../components/ui/card";</span>
+<span class="cstat-no" title="statement not covered" >---</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >&lt;MainLayout title="Ustawienia"&gt;</span>
+<span class="cstat-no" title="statement not covered" >  &lt;div class="bg-white"&gt;</span>
+<span class="cstat-no" title="statement not covered" >    &lt;div class="mx-auto max-w-7xl py-16 px-4 sm:py-24 sm:px-6 lg:px-8"&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;div class="text-center"&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;h1</span>
-<span class="cstat-no" title="statement not covered" >          class="text-6xl font-bold mb-4 bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 text-transparent bg-clip-text drop-shadow-lg"</span>
-<span class="cstat-no" title="statement not covered" >        &gt;</span>
-<span class="cstat-no" title="statement not covered" >          Witaj w 10xDevs Astro Starter!</span>
+<span class="cstat-no" title="statement not covered" >        &lt;h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;span class="block"&gt;Ustawienia&lt;/span&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;span class="block text-blue-600"&gt;Dostosuj aplikację&lt;/span&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/h1&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;p class="text-xl text-blue-100/90 drop-shadow-md"&gt;</span>
-<span class="cstat-no" title="statement not covered" >          Ten projekt został zbudowany w oparciu o nowoczesny stack technologiczny:</span>
+<span class="cstat-no" title="statement not covered" >        &lt;p class="mx-auto mt-3 max-w-md text-base text-gray-500 sm:text-lg md:mt-5 md:max-w-3xl md:text-xl"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          Dostosuj ustawienia aplikacji do swoich potrzeb. Zmień wygląd, język i inne parametry.</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/p&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >      &lt;div class="flex flex-col gap-6 max-w-2xl mx-auto"&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;div class="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10"&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;h2</span>
-<span class="cstat-no" title="statement not covered" >            class="text-2xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-purple-200"</span>
-<span class="cstat-no" title="statement not covered" >          &gt;</span>
-<span class="cstat-no" title="statement not covered" >            Core</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/h2&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;ul class="space-y-3"&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;li class="flex items-center space-x-3"&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;span class="font-mono bg-blue-900/50 px-3 py-1.5 rounded-lg text-blue-200 shadow-sm"&gt;Astro v5.5.5&lt;/span&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;span class="text-blue-100/90"&gt;- Metaframework do aplikacji webowych&lt;/span&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;/li&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;li class="flex items-center space-x-3"&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;span class="font-mono bg-blue-900/50 px-3 py-1.5 rounded-lg text-blue-200 shadow-sm"&gt;React v19&lt;/span&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;span class="text-blue-100/90"&gt;- Biblioteka UI do komponentów interaktywnych&lt;/span&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;/li&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;li class="flex items-center space-x-3"&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;span class="font-mono bg-blue-900/50 px-3 py-1.5 rounded-lg text-blue-200 shadow-sm"&gt;TypeScript&lt;/span&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;span class="text-blue-100/90"&gt;- Typowanie statyczne&lt;/span&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;/li&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/ul&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >        &lt;div class="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10"&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;h2</span>
-<span class="cstat-no" title="statement not covered" >            class="text-2xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-purple-200"</span>
-<span class="cstat-no" title="statement not covered" >          &gt;</span>
-<span class="cstat-no" title="statement not covered" >            Stylowanie</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/h2&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;ul class="space-y-3"&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;li class="flex items-center space-x-3"&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;span class="font-mono bg-blue-900/50 px-3 py-1.5 rounded-lg text-blue-200 shadow-sm"</span>
-<span class="cstat-no" title="statement not covered" >                &gt;Tailwind CSS v4&lt;/span</span>
-<span class="cstat-no" title="statement not covered" >              &gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;span class="text-blue-100/90"&gt;- Utility-first CSS framework&lt;/span&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;/li&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/ul&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >        &lt;div class="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10"&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;h2</span>
-<span class="cstat-no" title="statement not covered" >            class="text-2xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-purple-200"</span>
-<span class="cstat-no" title="statement not covered" >          &gt;</span>
-<span class="cstat-no" title="statement not covered" >            Statyczna analiza kodu</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/h2&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;ul class="space-y-3"&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;li class="flex items-center space-x-3"&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;span class="font-mono bg-blue-900/50 px-3 py-1.5 rounded-lg text-blue-200 shadow-sm"&gt;ESLint v9&lt;/span&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;span class="text-blue-100/90"&gt;- Lintowanie kodu&lt;/span&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;/li&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;li class="flex items-center space-x-3"&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;span class="font-mono bg-blue-900/50 px-3 py-1.5 rounded-lg text-blue-200 shadow-sm"&gt;Prettier&lt;/span&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;span class="text-blue-100/90"&gt;- Formatowanie kodu&lt;/span&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;/li&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;li class="flex items-center space-x-3"&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;span class="font-mono bg-blue-900/50 px-3 py-1.5 rounded-lg text-blue-200 shadow-sm"</span>
-<span class="cstat-no" title="statement not covered" >                &gt;Husky i Lint-staged&lt;/span</span>
-<span class="cstat-no" title="statement not covered" >              &gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;span class="text-blue-100/90"&gt;- Automatyczna analiza kodu przed commitowaniem&lt;/span&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;/li&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/ul&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >      &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >      &lt;p class="text-lg text-center text-blue-100/90 mt-8 leading-relaxed"&gt;</span>
-<span class="cstat-no" title="statement not covered" >        Starter zawiera wszystko, czego potrzebujesz do rozpoczęcia tworzenia &lt;br class="hidden sm:block" /&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;span class="font-semibold bg-gradient-to-r from-blue-200 to-purple-200 text-transparent bg-clip-text"</span>
-<span class="cstat-no" title="statement not covered" >          &gt;nowoczesnych aplikacji webowych!&lt;/span</span>
-<span class="cstat-no" title="statement not covered" >        &gt;</span>
-<span class="cstat-no" title="statement not covered" >      &lt;/p&gt;</span>
 <span class="cstat-no" title="statement not covered" >    &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >  &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >&lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  &lt;div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"&gt;</span>
+<span class="cstat-no" title="statement not covered" >    &lt;div class="space-y-6"&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;Card&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;CardHeader&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;CardTitle&gt;Wygląd&lt;/CardTitle&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;CardDescription&gt;Dostosuj wygląd aplikacji do swoich preferencji.&lt;/CardDescription&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/CardHeader&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;CardContent&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;div class="space-y-4"&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;div class="flex items-center justify-between"&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;div&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;h3 class="text-lg font-medium leading-6 text-gray-900"&gt;Motyw ciemny&lt;/h3&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;p class="mt-1 text-sm text-gray-500"&gt;Włącz lub wyłącz ciemny motyw aplikacji.&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;Button variant="outline"&gt;Włącz&lt;/Button&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;div class="flex items-center justify-between"&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;div&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;h3 class="text-lg font-medium leading-6 text-gray-900"&gt;Kontrast&lt;/h3&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;p class="mt-1 text-sm text-gray-500"&gt;Dostosuj kontrast interfejsu.&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;Button variant="outline"&gt;Normalny&lt;/Button&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/CardContent&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;/Card&gt;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      &lt;Card&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;CardHeader&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;CardTitle&gt;Język&lt;/CardTitle&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;CardDescription&gt;Wybierz język interfejsu aplikacji.&lt;/CardDescription&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/CardHeader&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;CardContent&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;div class="space-y-4"&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;div class="flex items-center justify-between"&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;div&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;h3 class="text-lg font-medium leading-6 text-gray-900"&gt;Język interfejsu&lt;/h3&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;p class="mt-1 text-sm text-gray-500"&gt;Wybierz język, w którym będzie wyświetlany interfejs.&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;Button variant="outline"&gt;Polski&lt;/Button&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/CardContent&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;/Card&gt;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      &lt;Card&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;CardHeader&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;CardTitle&gt;Powiadomienia&lt;/CardTitle&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;CardDescription&gt;Zarządzaj powiadomieniami aplikacji.&lt;/CardDescription&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/CardHeader&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;CardContent&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;div class="space-y-4"&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;div class="flex items-center justify-between"&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;div&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;h3 class="text-lg font-medium leading-6 text-gray-900"&gt;Przypomnienia o nauce&lt;/h3&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;p class="mt-1 text-sm text-gray-500"&gt;Otrzymuj przypomnienia o zaplanowanych sesjach nauki.&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;Button variant="outline"&gt;Włącz&lt;/Button&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;div class="flex items-center justify-between"&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;div&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;h3 class="text-lg font-medium leading-6 text-gray-900"&gt;Powiadomienia email&lt;/h3&gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;p class="mt-1 text-sm text-gray-500"&gt;Otrzymuj powiadomienia na adres email.&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;Button variant="outline"&gt;Wyłącz&lt;/Button&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/CardContent&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;/Card&gt;</span>
+<span class="cstat-no" title="statement not covered" >    &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >  &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >&lt;/MainLayout&gt;</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

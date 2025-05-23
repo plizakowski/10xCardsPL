@@ -6,7 +6,7 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
@@ -16,11 +16,7 @@ const { title } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body class="min-h-screen bg-background text-foreground">
-    <main 
-      class="min-h-screen flex flex-col"
-      role="main"
-      aria-labelledby="main-heading"
-    >
+    <main class="min-h-screen flex flex-col" role="main" aria-labelledby="main-heading">
       <div class="flex-grow flex items-center justify-center py-8">
         <slot />
       </div>
@@ -40,6 +36,8 @@ const { title } = Astro.props;
   }
 
   body {
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
   }
-</style> 
+</style>
