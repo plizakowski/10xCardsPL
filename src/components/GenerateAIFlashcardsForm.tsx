@@ -32,7 +32,7 @@ export default function GenerateAIFlashcardsForm({ onFlashcardsGenerated }: Gene
     setIsGenerating(true);
 
     try {
-      // TODO: Zaimplementować rzeczywiste wywołanie API
+      console.log("Wysyłanie żądania do API...");
       const response = await fetch("/api/generate-flashcards", {
         method: "POST",
         headers: {
@@ -41,15 +41,31 @@ export default function GenerateAIFlashcardsForm({ onFlashcardsGenerated }: Gene
         body: JSON.stringify({ text }),
       });
 
+      console.log("Otrzymano odpowiedź:", response.status, response.statusText);
+
       if (!response.ok) {
-        throw new Error("Wystąpił błąd podczas generowania fiszek");
+        const errorData = await response.json().catch(() => null);
+        console.error("Błąd odpowiedzi:", {
+          status: response.status,
+          statusText: response.statusText,
+          errorData,
+        });
+        throw new Error(errorData?.error || `Błąd serwera: ${response.status} ${response.statusText}`);
       }
 
       const data = await response.json();
+      console.log("Otrzymano dane:", data);
+
+      if (!data.flashcards || !Array.isArray(data.flashcards)) {
+        console.error("Nieprawidłowy format odpowiedzi:", data);
+        throw new Error("Otrzymano nieprawidłowy format danych z serwera");
+      }
+
       onFlashcardsGenerated(data.flashcards);
       setText("");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Wystąpił nieznany błąd");
+      console.error("Błąd podczas generowania fiszek:", err);
+      setError(err instanceof Error ? err.message : "Wystąpił nieznany błąd podczas komunikacji z serwerem");
     } finally {
       setIsGenerating(false);
     }

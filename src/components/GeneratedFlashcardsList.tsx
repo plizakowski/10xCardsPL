@@ -72,7 +72,7 @@ export default function GeneratedFlashcardsList({
         </div>
       </CardHeader>
       <CardContent>
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {flashcards.map((flashcard) => (
             <div key={flashcard.id} className="border rounded-lg p-4 space-y-4 bg-white shadow-sm">
               {editingId === flashcard.id ? (
@@ -137,9 +137,8 @@ export default function GeneratedFlashcardsList({
                     <Button
                       onClick={() => handleStartEdit(flashcard)}
                       variant="outline"
-                      size="sm"
-                      className="border-gray-300 text-gray-700 hover:bg-gray-50"
                       disabled={isProcessing}
+                      data-testid={`edit-button-${flashcard.id}`}
                     >
                       Edytuj
                     </Button>
@@ -149,6 +148,7 @@ export default function GeneratedFlashcardsList({
                       size="sm"
                       className="bg-red-600 hover:bg-red-700 text-white"
                       disabled={isProcessing}
+                      data-testid={`reject-button-${flashcard.id}`}
                     >
                       {isProcessing ? "..." : "Odrzuć"}
                     </Button>
@@ -157,6 +157,7 @@ export default function GeneratedFlashcardsList({
                       size="sm"
                       className="bg-blue-600 hover:bg-blue-700 text-white"
                       disabled={isProcessing}
+                      data-testid={`accept-button-${flashcard.id}`}
                     >
                       {isProcessing ? "..." : "Akceptuj"}
                     </Button>
