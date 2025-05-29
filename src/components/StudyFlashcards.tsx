@@ -65,14 +65,24 @@ export default function StudyFlashcards() {
   return (
     <div className="p-6">
       <div className="flex flex-col items-center space-y-6">
-        <div className="w-full max-w-2xl">
+        <div className="w-full max-w-4xl">
           <Card className="p-6">
             <div className="min-h-[200px] flex flex-col justify-between">
-              <div>
-                <h3 className="text-lg font-medium text-gray-900 mb-4">{isShowingAnswer ? "Odpowiedź" : "Pytanie"}</h3>
-                <p className="text-gray-700 text-xl">{isShowingAnswer ? currentCard.back : currentCard.front}</p>
+              <div className="grid grid-cols-2 gap-8 mb-6">
+                <div>
+                  <h3 className="text-lg font-medium text-gray-900 mb-4">Pytanie</h3>
+                  <p className="text-gray-700 text-xl">{currentCard.front}</p>
+                </div>
+                <div>
+                  <h3 className="text-lg font-medium text-gray-900 mb-4">Odpowiedź</h3>
+                  <p
+                    className={`text-gray-700 text-xl ${!isShowingAnswer ? "blur-sm hover:blur-none transition-all duration-200" : ""}`}
+                  >
+                    {currentCard.back}
+                  </p>
+                </div>
               </div>
-              <div className="mt-6 flex justify-center">
+              <div className="flex justify-center">
                 {!isShowingAnswer ? (
                   <Button onClick={handleShowAnswer} size="lg">
                     Pokaż odpowiedź

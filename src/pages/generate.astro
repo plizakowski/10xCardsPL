@@ -1,13 +1,11 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import GenerateAIFlashcardsForm from "../components/GenerateAIFlashcardsForm";
-import GeneratedFlashcardsList from "../components/GeneratedFlashcardsList";
+import FlashcardsManager from "../components/FlashcardsManager";
 ---
 
 <MainLayout title="Generuj fiszki z AI">
   <div class="container mx-auto px-4 py-8">
     <h1 class="text-3xl font-bold mb-8">Generuj fiszki z pomocą AI</h1>
-    <GenerateAIFlashcardsForm client:load />
-    <GeneratedFlashcardsList client:load />
+    <FlashcardsManager client:load />
   </div>
 </MainLayout>

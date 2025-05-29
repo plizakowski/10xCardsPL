@@ -14,33 +14,45 @@ const PUBLIC_PATHS = [
 ];
 
 export const onRequest = defineMiddleware(async ({ locals, cookies, url, request, redirect }, next) => {
-  const supabase = createSupabaseServer({
-    cookies,
-    headers: request.headers,
-  });
+  try {
+    // Inicjalizacja klienta Supabase
+    const supabase = createSupabaseServer({
+      cookies,
+      headers: request.headers,
+    });
 
-  // Dodajemy klienta Supabase do locals
-  locals.supabase = supabase;
+    // Dodajemy klienta Supabase do locals
+    locals.supabase = supabase;
 
-  // Pomijamy sprawdzanie autoryzacji dla ścieżek publicznych
-  if (PUBLIC_PATHS.includes(url.pathname)) {
-    return next();
+    // Pomijamy sprawdzanie autoryzacji dla ścieżek publicznych
+    if (PUBLIC_PATHS.includes(url.pathname)) {
+      return next();
+    }
+
+    // Pobieramy dane użytkownika
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
+
+    if (userError) {
+      console.error("Błąd podczas pobierania użytkownika:", userError);
+      return redirect("/login");
+    }
+
+    if (user) {
+      // Dodajemy informacje o użytkowniku do locals
+      locals.user = {
+        email: user.email || "",
+        id: user.id,
+      };
+      return next();
+    }
+
+    // Przekierowanie na stronę logowania dla chronionych ścieżek
+    return redirect("/login");
+  } catch (error) {
+    console.error("Błąd w middleware:", error);
+    return redirect("/login");
   }
-
-  // Pobieramy sesję użytkownika
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (user) {
-    // @ts-expect-error - Astro API types are not fully compatible
-    locals.user = {
-      email: user.email,
-      id: user.id,
-    };
-    return next();
-  }
-
-  // Przekierowanie na stronę logowania dla chronionych ścieżek
-  return redirect("/login");
 });

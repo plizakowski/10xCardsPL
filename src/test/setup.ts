@@ -38,3 +38,31 @@ vi.mock("@supabase/supabase-js", () => {
     })),
   };
 });
+
+// Mock dla fetch API
+global.fetch = vi.fn();
+
+// Mock dla localStorage
+const localStorageMock = {
+  getItem: vi.fn(),
+  setItem: vi.fn(),
+  clear: vi.fn(),
+  removeItem: vi.fn(),
+  length: 0,
+  key: vi.fn(),
+};
+
+global.localStorage = localStorageMock;
+
+// Wyciszenie ostrzeżeń konsoli podczas testów
+global.console = {
+  ...console,
+  error: vi.fn(),
+  warn: vi.fn(),
+  log: vi.fn(),
+};
+
+// Czyszczenie wszystkich mocków przed każdym testem
+beforeEach(() => {
+  vi.clearAllMocks();
+});

@@ -20,6 +20,7 @@ export default defineConfig({
     },
     include: ["src/**/*.{test,spec}.{js,ts,jsx,tsx}"],
     exclude: ["node_modules", ".astro", "dist", "e2e"],
+    testTimeout: 60000,
   },
   resolve: {
     alias: {

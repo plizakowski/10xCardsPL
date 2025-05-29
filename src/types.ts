@@ -33,6 +33,7 @@ export interface FlashcardDTO {
   front_text: string;
   back_text: string;
   status: FlashcardStatus;
+  user_id: string;
 }
 
 /** DTO fiszki z dodatkowymi informacjami o źródle */
