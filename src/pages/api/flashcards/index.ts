@@ -5,14 +5,29 @@ import type { GetFlashcardsResponseDTO } from "../../../types";
 import { supabaseClient, DEFAULT_USER_ID } from "../../../db/supabase.client";
 import type { CreateFlashcardCommand, CreateFlashcardResponseDTO } from "../../../types";
 
-export const GET: APIRoute = async ({ request }) => {
+export const GET: APIRoute = async ({ request, locals }) => {
   try {
+    // Sprawdzamy, czy użytkownik jest zalogowany
+    if (!locals.supabase) {
+      return new Response(
+        JSON.stringify({
+          error: "Brak autoryzacji",
+        }),
+        {
+          status: 401,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    }
+
     // Parsowanie i walidacja parametrów zapytania
     const url = new URL(request.url);
     const validatedParams = validateAndParseQueryParams(url.searchParams);
 
     // Pobieranie danych z bazy
-    const { data, total } = await getFlashcards(validatedParams);
+    const { data, total } = await getFlashcards(locals.supabase, validatedParams);
 
     // Przygotowanie odpowiedzi
     const response: GetFlashcardsResponseDTO = {
@@ -61,8 +76,23 @@ export const GET: APIRoute = async ({ request }) => {
   }
 };
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
+    // Sprawdzamy, czy użytkownik jest zalogowany
+    if (!locals.supabase || !locals.user) {
+      return new Response(
+        JSON.stringify({
+          error: "Brak autoryzacji",
+        }),
+        {
+          status: 401,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    }
+
     const data = (await request.json()) as CreateFlashcardCommand;
 
     // Walidacja danych wejściowych
@@ -81,13 +111,13 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // Tworzenie rekordu w bazie danych
-    const { data: flashcard, error } = await supabaseClient
+    const { data: flashcard, error } = await locals.supabase
       .from("flashcards")
       .insert({
         front_text: data.front_text,
         back_text: data.back_text,
         status: data.status,
-        user_id: DEFAULT_USER_ID,
+        user_id: locals.user.id,
       })
       .select()
       .single();
@@ -105,6 +135,7 @@ export const POST: APIRoute = async ({ request }) => {
       front_text: flashcard.front_text,
       back_text: flashcard.back_text,
       status: flashcard.status,
+      user_id: flashcard.user_id,
     };
 
     return new Response(JSON.stringify(response), {

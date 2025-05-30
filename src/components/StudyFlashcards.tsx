@@ -1,39 +1,82 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
+import { toast } from "sonner";
 
 interface Flashcard {
   id: string;
   front: string;
   back: string;
-  lastReviewed: Date;
-  nextReview: Date;
-  easeFactor: number;
+  lastReviewed?: Date;
+  nextReview?: Date;
+  easeFactor?: number;
 }
 
-const mockFlashcards: Flashcard[] = [
-  {
-    id: "1",
-    front: "Co to jest React?",
-    back: "React to biblioteka JavaScript do budowania interfejsów użytkownika.",
-    lastReviewed: new Date(),
-    nextReview: new Date(),
-    easeFactor: 2.5,
-  },
-  {
-    id: "2",
-    front: "Co to jest TypeScript?",
-    back: "TypeScript to typowany nadzbiór JavaScript, który kompiluje się do czystego JavaScript.",
-    lastReviewed: new Date(),
-    nextReview: new Date(),
-    easeFactor: 2.5,
-  },
-];
+interface APIFlashcard {
+  id: string;
+  front_text: string;
+  back_text: string;
+  status: string;
+  user_id: string;
+}
+
+interface APIResponse {
+  data: APIFlashcard[];
+  pagination: {
+    total: number;
+    page: number;
+    limit: number;
+    pages: number;
+  };
+}
 
 export default function StudyFlashcards() {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isShowingAnswer, setIsShowingAnswer] = useState(false);
-  const [flashcards] = useState<Flashcard[]>(mockFlashcards);
+  const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchFlashcards = async () => {
+      try {
+        console.log("Pobieranie fiszek...");
+        const params = new URLSearchParams({
+          status: "accepted",
+          page: "1",
+          limit: "100",
+          sort: "newest",
+        });
+        const response = await fetch(`/api/flashcards?${params}`);
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error("Błąd odpowiedzi API:", errorData);
+          throw new Error("Nie udało się pobrać fiszek");
+        }
+        const data: APIResponse = await response.json();
+        console.log("Pobrane dane:", data);
+
+        if (!data.data || !Array.isArray(data.data)) {
+          console.error("Nieprawidłowy format danych:", data);
+          throw new Error("Nieprawidłowy format danych z API");
+        }
+
+        const mappedFlashcards = data.data.map((card) => ({
+          id: card.id,
+          front: card.front_text,
+          back: card.back_text,
+        }));
+        console.log("Zmapowane fiszki:", mappedFlashcards);
+        setFlashcards(mappedFlashcards);
+      } catch (error) {
+        console.error("Błąd podczas pobierania fiszek:", error);
+        toast.error("Nie udało się pobrać fiszek do nauki");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchFlashcards();
+  }, []);
 
   const currentCard = flashcards[currentCardIndex];
 
@@ -53,11 +96,19 @@ export default function StudyFlashcards() {
     handleNextCard();
   };
 
-  if (!currentCard) {
+  if (isLoading) {
+    return (
+      <div className="text-center py-12">
+        <h2 className="text-2xl font-semibold text-gray-900">Ładowanie fiszek...</h2>
+      </div>
+    );
+  }
+
+  if (!currentCard || flashcards.length === 0) {
     return (
       <div className="text-center py-12">
         <h2 className="text-2xl font-semibold text-gray-900">Brak fiszek do nauki</h2>
-        <p className="mt-2 text-gray-600">Dodaj nowe fiszki w sekcji generowania.</p>
+        <p className="mt-2 text-gray-600">Dodaj i zaakceptuj fiszki w sekcji generowania.</p>
       </div>
     );
   }

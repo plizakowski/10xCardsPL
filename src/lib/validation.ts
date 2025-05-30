@@ -31,7 +31,7 @@ export function validateAndParseQueryParams(params: URLSearchParams): ValidatedQ
   // Walidacja statusu
   const status = params.get("status");
   if (status) {
-    if (!["zaakceptowane", "odrzucone", "w trakcie edycji"].includes(status)) {
+    if (!["accepted", "rejected", "editing"].includes(status)) {
       throw new ValidationError("Nieprawidłowy status fiszki");
     }
     result.status = status as FlashcardStatus;
