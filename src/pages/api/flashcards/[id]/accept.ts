@@ -29,6 +29,8 @@ export const POST: APIRoute = async ({ params, locals, request }) => {
       error: userError,
     } = await supabase.auth.getUser();
 
+    console.log("Akceptacja fiszki - user:", user?.id);
+
     if (userError || !user) {
       console.error("Błąd podczas pobierania użytkownika:", userError);
       return new Response(
@@ -51,6 +53,8 @@ export const POST: APIRoute = async ({ params, locals, request }) => {
       .eq("id", id)
       .eq("user_id", user.id)
       .single();
+
+    console.log("Znaleziona fiszka:", flashcard);
 
     if (flashcardError || !flashcard) {
       console.error("Błąd podczas pobierania fiszki:", flashcardError);
@@ -76,6 +80,8 @@ export const POST: APIRoute = async ({ params, locals, request }) => {
     if (front_text !== undefined) updateData.front_text = front_text;
     if (back_text !== undefined) updateData.back_text = back_text;
 
+    console.log("Aktualizacja fiszki - dane:", updateData);
+
     // Zaktualizuj status fiszki na "accepted" i opcjonalnie tekst
     const { data, error } = await supabase
       .from("flashcards")
@@ -99,6 +105,8 @@ export const POST: APIRoute = async ({ params, locals, request }) => {
         }
       );
     }
+
+    console.log("Zaktualizowana fiszka:", data);
 
     return new Response(JSON.stringify(data), {
       status: 200,
